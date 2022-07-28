@@ -1,0 +1,19 @@
+image: debian
+stages:
+  - build
+  - deploy
+
+djangoBuild:
+    stage: build
+    script: 
+    - git remote pull matskevich_devops_test_for_welbex master
+    - rsync -r /home/admin/
+    - source /home/admin/django_app/venv/bin/activate
+    - python migrate.py
+
+dockerDeploy:
+    stage: deploy
+    scripts: 
+    - cd /home/admin/django-app
+    - docker build -t django-app .
+    - docker run -p 8000:80 django-app

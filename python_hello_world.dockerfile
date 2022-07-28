@@ -1,5 +1,7 @@
 FROM 3.11.0b5-bullseye
+RUN apt install nginx
 RUN pip install
+
 
 # Allows docker to cache installed dependencies between builds
 COPY requirements.txt requirements.txt
